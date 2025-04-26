@@ -8,7 +8,7 @@ const Social = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <i className="uil uil-instagram"></i>
+          <i className='bx bxl-instagram'></i>
         </a>
         <a
           href="https://dribbble.com/sowmik265"
@@ -16,7 +16,7 @@ const Social = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <i className="uil uil-dribbble"></i>
+          <i className='bx bxl-dribbble'></i>
         </a>
         <a
           href="https://github.com/sowmik265"
@@ -24,7 +24,7 @@ const Social = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <i className="uil uil-github-alt"></i>
+          <i className='bx bxl-github'></i>
         </a>
       </div>
     </div>

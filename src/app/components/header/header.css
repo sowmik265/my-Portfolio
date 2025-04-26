@@ -1,3 +1,15 @@
+Variables
+:root {
+  --header-height: 3rem;
+  --body-color: #fff;
+  --title-color: #111;
+  --title-color-dark: #000;
+  --font-medium: 500;
+  --small-font-size: 0.875rem;
+  --z-fixed: 100;
+}
+
+/* Header & Navigation */
 .header {
   width: 100%;
   position: fixed;
@@ -5,6 +17,7 @@
   left: 0;
   z-index: var(--z-fixed);
   background-color: var(--body-color);
+  transition: 0.3s;
 }
 
 .nav {
@@ -12,18 +25,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  column-gap: 1rem;
+  padding: 0 1.5rem;
 }
 
-.nav__logo,
-.nav--toggle {
-  color: var(--title-color);
+.nav__logo {
+  font-size: 1.25rem;
   font-weight: var(--font-medium);
+  color: var(--title-color);
+}
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .nav__list {
   display: flex;
-  column-gap: 2rem;
+  gap: 2rem;
 }
 
 .nav__link {
@@ -36,34 +55,34 @@
   transition: 0.3s;
 }
 
-.nav__icon,
-.nav__close,
-.nav__toggle {
-  display: none;
+.nav__icon {
+  font-size: 1.2rem;
 }
-
-/* active link */
 
 .active-link,
 .nav__link:hover {
   color: var(--title-color-dark);
+  font-weight: bold; 
 }
 
+.nav__toggle,
+.nav__close {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--title-color);
+}
+
+/* Scroll header effect */
 .scroll-header {
-  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-/*=============== BREAKPOINTS ===============*/
-/* For large devices */
-
+/* Responsive */
 @media screen and (max-width: 768px) {
   .header {
     top: initial;
     bottom: 0;
-  }
-
-  .nav {
-    height: var(--header-height);
   }
 
   .nav__menu {
@@ -73,9 +92,10 @@
     width: 100%;
     background-color: var(--body-color);
     padding: 2rem 1.5rem 4rem;
-    box-shadow: 0 -1px 4px rgb(0, 0, 0, 0.15);
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
     border-radius: 1.5rem 1.5rem 0 0;
     transition: 0.3s;
+    flex-direction: column;
   }
 
   .show-menu {
@@ -88,41 +108,8 @@
     gap: 2rem;
   }
 
-  .nav__icon {
-    font-size: 1.2rem;
-  }
-
+  .nav__toggle,
   .nav__close {
-    position: absolute;
-    right: 1.3rem;
-    bottom: 0.5rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--title-color);
-  }
-
-  .nav__close:hover {
-    color: var(--title-color-dark);
-  }
-
-  .nav__toggle {
-    font-size: 1.1rem;
-    cursor: pointer;
-  }
-
-  .nav__icon,
-  .nav__close,
-  .nav__toggle {
     display: block;
-  }
-}
-
-@media screen and (max-width: 350px) {
-  .nav__menu {
-    padding: 2rem 0.25rem 4rem;
-  }
-
-  .nav__list {
-    column-gap: 0;
   }
 }

@@ -1,10 +1,12 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion"; // ✅ Correct import
 import "./header.css";
+import Image from "next/image";
 
 export default function Header() {
-  const [toggle, showMenu] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const [activeNav, setActiveNav] = useState("#home");
 
   useEffect(() => {
@@ -18,92 +20,59 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    // Cleanup on component unmount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navItems = [
+    { href: "#home", label: "Home", icon: "bx-home-alt" },
+    { href: "#about", label: "About", icon: "bx-user" },
+    { href: "#skills", label: "Skills", icon: "bx-code-alt" },
+    { href: "#services", label: "Services", icon: "bx-briefcase-alt" },
+    { href: "#portfolio", label: "Portfolio", icon: "bx-images" },
+    { href: "#contact", label: "Contact", icon: "bx-envelope" },
+  ];
 
   return (
     <header className="header">
       <nav className="nav container">
-        <a href="#home" className="nav__logo text-3xl">
-          4Piece Tech
+        <a href="#home" className="nav__logo">
+          <Image src="/logo.png" alt="Logo" width={90} height={80} />
         </a>
 
-        <div className={toggle ? "nav__menu show-menu" : "nav__menu"}>
+        <div className={`nav__menu ${toggle ? "show-menu" : ""}`}>
           <ul className="nav__list grid">
-            <li className="nav__item">
-              <a
-                href="#home"
-                onClick={() => setActiveNav("#home")}
-                className={activeNav === "#home" ? "nav__link active-link" : "nav__link"}
-              >
-                <i className="uil uil-estate nav__icon"></i>
-                Home
-              </a>
-            </li>
-
-            <li className="nav__item">
-              <a
-                href="#about"
-                onClick={() => setActiveNav("#about")}
-                className={activeNav === "#about" ? "nav__link active-link" : "nav__link"}
-              >
-                <i className="uil uil-user nav__icon"></i>
-                About
-              </a>
-            </li>
-
-            <li className="nav__item">
-              <a
-                href="#skills"
-                onClick={() => setActiveNav("#skills")}
-                className={activeNav === "#skills" ? "nav__link active-link" : "nav__link"}
-              >
-                <i className="uil uil-file-alt nav__icon"></i>
-                Skills
-              </a>
-            </li>
-
-            <li className="nav__item">
-              <a
-                href="#services"
-                onClick={() => setActiveNav("#services")}
-                className={activeNav === "#services" ? "nav__link active-link" : "nav__link"}
-              >
-                <i className="uil uil-briefcase-alt nav__icon"></i>
-                Services
-              </a>
-            </li>
-
-            <li className="nav__item">
-              <a
-                href="#portfolio"
-                onClick={() => setActiveNav("#portfolio")}
-                className={activeNav === "#portfolio" ? "nav__link active-link" : "nav__link"}
-              >
-                <i className="uil uil-scenery nav__icon"></i>
-                Portfolio
-              </a>
-            </li>
-
-            <li className="nav__item">
-              <a
-                href="#contact"
-                onClick={() => setActiveNav("#contact")}
-                className={activeNav === "#contact" ? "nav__link active-link" : "nav__link"}
-              >
-                <i className="uil uil-message nav__icon"></i>
-                Contact
-              </a>
-            </li>
+            {navItems.map((item) => (
+              <li className="nav__item" key={item.href}>
+                <motion.a
+                  href={item.href}
+                  onClick={() => setActiveNav(item.href)}
+                  className={`nav__link ${
+                    activeNav === item.href ? "active-link" : ""
+                  }`}
+                  whileHover={{
+                    scale: [null, 1.1, 1.6],
+                    transition: {
+                      duration: 0.5,
+                      times: [0, 0.6, 1],
+                      ease: ["easeInOut", "easeOut"],
+                    },
+                  }}
+                >
+                  <i className={`bx ${item.icon} nav__icon bx-tada`}></i>
+                  {item.label}
+                </motion.a>
+              </li>
+            ))}
           </ul>
 
-          <i onClick={() => showMenu(false)} className="uil uil-times nav__close"></i>
+          <i
+            onClick={() => setToggle(false)}
+            className="bx bx-x nav__close bx-tada"
+          ></i>
         </div>
 
-        <div onClick={() => showMenu(true)} className="nav__toggle">
-          <i className="uil uil-apps"></i>
+        <div onClick={() => setToggle(true)} className="nav__toggle">
+          <i className="bx bx-menu bx-tada"></i>
         </div>
       </nav>
     </header>
