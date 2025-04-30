@@ -52,15 +52,21 @@ export default function Header() {
                   href={item.href}
                   className={`flex flex-col items-center transition-all ${
                     pathname === item.href
-                      ? "text-black font-extrabold text-base"
-                      : "text-gray-800 font-medium text-sm"
+                      ? "bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent font-extrabold text-base"
+                      : "text-blue-500 font-medium text-sm hover:text-green-400"
                   }`}
                   whileHover={{
                     scale: [null, 1.1, 1.6],
                     transition: { duration: 0.5, times: [0, 0.6, 1] },
                   }}
                 >
-                  <i className={`bx ${item.icon} text-xl mb-1`}></i>
+                  <i
+                    className={`bx ${item.icon} text-xl mb-1 ${
+                      pathname === item.href
+                        ? "bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent"
+                        : "text-current"
+                    }`}
+                  ></i>
                   {item.label}
                 </motion.a>
               </li>
@@ -69,30 +75,35 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Mobile Bottom Bar: Logo + Menu Icon */}
-      <div className="fixed md:hidden bottom-0 left-0 w-full bg-white flex items-center justify-between px-6 py-3 z-[100]">
-        <a href="#home">
+      {/* Mobile Top Bar - Transparent */}
+      <div className="fixed md:hidden top-0 left-0 w-full flex items-center justify-between px-4 py-3 z-[100] bg-transparent">
+        <a href="#home" className="z-[101]">
           <Image
             src="/logo.png"
             alt="Logo"
-            width={80}
+            width={70}
             height={60}
-            className="w-[80px] h-auto"
+            className="w-[70px] h-auto"
           />
         </a>
-        <div
-          onClick={() => setToggle(true)}
-          className="text-2xl text-gray-800 cursor-pointer"
+        <button
+          onClick={() => setToggle(!toggle)}
+          className="z-[101] bg-white/50 rounded-lg p-2 backdrop-blur-sm font-semibold"
+          aria-label="Toggle navigation menu"
         >
-          <i className="bx bx-menu bx-tada"></i>
-        </div>
+          <i
+            className={`bx ${toggle ? "bx-x" : "bx-menu"} ${
+              !toggle && "bx-tada"
+            } text-2xl bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent`}
+          ></i>
+        </button>
       </div>
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`md:hidden fixed left-0 w-full bg-white px-6 pt-8 pb-8 rounded-t-3xl transition-all duration-300 ${
+        className={`md:hidden fixed left-0 w-full bg-white/95 px-6 pt-8 pb-8 rounded-t-3xl transition-all duration-300 ${
           toggle ? "bottom-0" : "-bottom-full"
-        } z-[101] h-[50vh] overflow-y-auto`} // Changed from 85vh to 75vh
+        } z-[99] h-[75vh] overflow-y-auto backdrop-blur-lg`}
       >
         <ul className="grid grid-cols-3 gap-6 justify-items-center pb-8">
           {navItems.map((item) => (
@@ -102,28 +113,26 @@ export default function Header() {
                 onClick={() => setToggle(false)}
                 className={`flex flex-col items-center text-sm font-medium ${
                   pathname === item.href
-                    ? "text-black font-extrabold text-base"
-                    : "text-gray-800"
+                    ? "bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent font-extrabold"
+                    : "text-blue-500 hover:text-green-400"
                 }`}
                 whileHover={{
                   scale: [null, 1.1, 1.6],
                   transition: { duration: 0.5, times: [0, 0.6, 1] },
                 }}
               >
-                <i className={`bx ${item.icon} text-xl mb-1`}></i>
+                <i
+                  className={`bx ${item.icon} text-xl mb-1 ${
+                    pathname === item.href
+                      ? "bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent"
+                      : "text-current"
+                  }`}
+                ></i>
                 {item.label}
               </motion.a>
             </li>
           ))}
         </ul>
-
-        {/* Close Button */}
-        <div
-          onClick={() => setToggle(false)}
-          className="sticky top-2 right-5 text-2xl cursor-pointer text-gray-800 text-end"
-        >
-          <i className="bx bx-x bx-tada"></i>
-        </div>
       </div>
     </>
   );
