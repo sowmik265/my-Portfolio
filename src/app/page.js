@@ -1,5 +1,5 @@
 import About from "./components/about/about";
-import Contact from "./components/contact/Contact";
+
 import Footer from "./components/footer/Footer";
 import HomePage from "./components/home/HomePage";
 import Qualification from "./components/qualification/Qualification";
@@ -21,7 +21,7 @@ export default function Home() {
       <Qualification></Qualification>
       <Work></Work>
       <Testimonials></Testimonials>
-      <Contact></Contact>
+
       <Footer></Footer>
       <ScrollUp></ScrollUp>
     </>
